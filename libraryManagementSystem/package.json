@@ -1,0 +1,23 @@
+{
+  "name": "librarymanagementsystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "http-status-pro-js": "^1.1.0",
+    "mongoose": "^9.4.1",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.14"
+  }
+}
