@@ -5,12 +5,10 @@ async function createUser(req, res) {
   try {
     const { name, username, email, password } = req.body;
 
+    // ✅ Required fields
     if (!name || !username || !email || !password) {
-      return res.render("signup", {
-        error: "All fields are required"
-      });
+      return res.render("signup", { error: "All fields are required" });
     }
-
 
     if (password.length > 14) {
       return res.render("signup", {
@@ -18,46 +16,47 @@ async function createUser(req, res) {
       });
     }
 
+    // ✅ Check email
     const isEmail = await User.findOne({ email });
     if (isEmail) {
-      return res.render("signup", {
-        error: "Email already exists"
-      });
-    }
-    const isUsername = await User.findOne({ username });
-    if (isUsername) {
-      return res.render("signup", {
-        error: "Username already taken"
-      });
+      return res.render("signup", { error: "Email already exists" });
     }
 
+    // ✅ Check username
+    const isUsername = await User.findOne({ username });
+    if (isUsername) {
+      return res.render("signup", { error: "Username already taken" });
+    }
+
+    // 🔐 Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
+
+    // ✅ Save user
+    await User.create({
       name,
       email,
       username,
-      password: hashedPassword,
+      password: hashedPassword
     });
 
-    await newUser.save();
-    return res.render("login", {
-      success: "Account created successfully!"
-    });
-
-    // OR redirect:
-    // res.redirect("/");
+    return res.redirect("/");
 
   } catch (error) {
-    console.error(error);
+    console.error("SIGNUP ERROR:", error);
 
+    // 🔥 VERY IMPORTANT (duplicate index error)
     if (error.code === 11000) {
-      return res.render("signup", {
-        error: "Duplicate field value"
-      });
+      if (error.keyPattern?.email) {
+        return res.render("signup", { error: "Email already exists" });
+      }
+      if (error.keyPattern?.username) {
+        return res.render("signup", { error: "Username already taken" });
+      }
+      return res.render("signup", { error: "Duplicate data" });
     }
 
     return res.render("signup", {
-      error: "Server error"
+      error: "Something went wrong"
     });
   }
 }
