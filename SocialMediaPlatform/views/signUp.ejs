@@ -4,28 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Signup</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(to right, #43e97b, #38f9d7);
+    }
+    .card {
+      border-radius: 15px;
+    }
+  </style>
 </head>
-<body class="bg-light">
-<form method="post" action="/signUp">
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card p-4 shadow" style="width: 400px;">
-    <h3 class="text-center mb-3">Create Account</h3>
 
-    <input name="name" type="text" class="form-control mb-2" placeholder="Full Name">
-    <input name="username" type="text" class="form-control mb-2" placeholder="Username">
-    <input name="email" type="email" class="form-control mb-2" placeholder="Email">
-    <input name="password" type="password" class="form-control mb-3" placeholder="Password">
+<body>
 
-    <button class="btn btn-success w-100" type="submit">Sign Up</button>
-    <form method="get">
-    <p class="text-center mt-3">
-      Already have an account? <a href="/">Login</a>
-    </p>
-    </form>
+<form method="post" action="/signup">
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    
+    <div class="card p-4 shadow" style="width: 400px;">
+      
+      <h3 class="text-center mb-3">Create Account</h3>
+
+      <!-- ✅ ERROR MESSAGE -->
+      <% if (typeof error !== 'undefined') { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <!-- NAME -->
+      <input name="name" type="text" class="form-control mb-2" placeholder="Full Name" required>
+
+      <!-- USERNAME -->
+      <input name="username" type="text" class="form-control mb-2" placeholder="Username" required>
+
+      <!-- EMAIL -->
+      <input name="email" type="email" class="form-control mb-2" placeholder="Email" required>
+
+      <!-- PASSWORD -->
+      <input 
+        name="password" 
+        type="password" 
+        id="password"
+        class="form-control mb-2" 
+        placeholder="Password"
+        maxlength="14"
+        required
+        oninput="validatePassword()"
+      >
+
+      <!-- ⚠️ LIVE ERROR -->
+      <div id="passwordError" class="text-danger mb-2" style="display:none;">
+        Password must be 14 characters or less
+      </div>
+
+      <!-- SUBMIT -->
+      <button class="btn btn-success w-100" type="submit">Sign Up</button>
+
+      <!-- LOGIN LINK -->
+      <p class="text-center mt-3">
+        Already have an account? <a href="/">Login</a>
+      </p>
+
+    </div>
   </div>
-</div>
-
 </form>
+
+<!-- 🔥 JS VALIDATION -->
+<script>
+  function validatePassword() {
+    const pass = document.getElementById("password").value;
+    const error = document.getElementById("passwordError");
+
+    if (pass.length > 14) {
+      error.style.display = "block";
+    } else {
+      error.style.display = "none";
+    }
+  }
+</script>
+
 </body>
 </html>

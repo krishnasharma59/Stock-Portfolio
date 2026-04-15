@@ -13,7 +13,7 @@ async function addComment(req, res) {
   userId: req.user.id,
   username: req.user.username,
   text,
-  createdAt: new Date()   // ✅ ADD THIS
+  createdAt: new Date()
 });
 
     await post.save();

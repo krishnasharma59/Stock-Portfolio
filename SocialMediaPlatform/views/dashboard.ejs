@@ -107,7 +107,13 @@ const userPosts = posts.filter(p => String(p.userId._id) === String(user.id));
   <form action="/addPost" method="POST" onsubmit="return validateImage()">
     <input type="text" name="title" placeholder="Title" required>
     <textarea name="description" placeholder="What's on your mind?" required></textarea>
-    <input type="text" id="imageURL" name="imageURL" placeholder="Image URL (optional)">
+    <input 
+  type="text" 
+  id="imageURL" 
+  name="imageURL" 
+  placeholder="Image URL" 
+  required
+>
     <button class="btn btn-blue">Post</button>
   </form>
 </div>

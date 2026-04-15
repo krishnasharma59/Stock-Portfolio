@@ -15,7 +15,6 @@ function auth2(req, res, next) {
 
     const decoded = jwt.verify(token, process.env.TOKENKEY);
 
-    // ✅ ONLY THIS (NO user variable anywhere)
     req.user = decoded;
 
     next();
