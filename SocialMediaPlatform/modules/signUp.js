@@ -7,11 +7,11 @@ async function createUser(req, res) {
 
     // ✅ Required fields
     if (!name || !username || !email || !password) {
-      return res.render("signup", { error: "All fields are required" });
+      return res.render("signUp", { error: "All fields are required" });
     }
 
     if (password.length > 14) {
-      return res.render("signup", {
+      return res.render("signUp", {
         error: "Password must be 14 characters or less"
       });
     }
@@ -19,13 +19,13 @@ async function createUser(req, res) {
     // ✅ Check email
     const isEmail = await User.findOne({ email });
     if (isEmail) {
-      return res.render("signup", { error: "Email already exists" });
+      return res.render("signUp", { error: "Email already exists" });
     }
 
     // ✅ Check username
     const isUsername = await User.findOne({ username });
     if (isUsername) {
-      return res.render("signup", { error: "Username already taken" });
+      return res.render("signUp", { error: "Username already taken" });
     }
 
     // 🔐 Hash password
@@ -42,20 +42,20 @@ async function createUser(req, res) {
     return res.redirect("/");
 
   } catch (error) {
-    console.error("SIGNUP ERROR:", error);
+    console.error("signUp ERROR:", error);
 
     // 🔥 VERY IMPORTANT (duplicate index error)
     if (error.code === 11000) {
       if (error.keyPattern?.email) {
-        return res.render("signup", { error: "Email already exists" });
+        return res.render("signUp", { error: "Email already exists" });
       }
       if (error.keyPattern?.username) {
-        return res.render("signup", { error: "Username already taken" });
+        return res.render("signUp", { error: "Username already taken" });
       }
-      return res.render("signup", { error: "Duplicate data" });
+      return res.render("signUp", { error: "Duplicate data" });
     }
 
-    return res.render("signup", {
+    return res.render("signUp", {
       error: "Something went wrong"
     });
   }
