@@ -26,7 +26,36 @@
   right: 20px;
   z-index: 9999;
 "></div>
-
+<!-- 🚀 HEADER -->
+<nav style="
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+">
+  <h2 style="
+    margin: 0;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  ">
+    <span style="
+      background: white;
+      color: #4facfe;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 18px;
+    ">🚀</span>
+    Social App
+  </h2>
+</nav>
 <form method="post">
   <div class="container d-flex justify-content-center align-items-center vh-100">
     
@@ -130,6 +159,20 @@ document.querySelector("form").addEventListener("submit", function() {
   showToast("<%= error %>");
 </script>
 <% } %>
-
+<footer style="
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+">
+  © 2026 All rights reserved by Group 6
+</footer>
 </body>
 </html>
